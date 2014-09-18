@@ -31,10 +31,6 @@
         <developerConnection>scm:git:git@github.com:codenvy/plugin-php.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
-    <properties>
-        <dto-generator-out-directory>${project.build.directory}/generated-sources/dto/</dto-generator-out-directory>
-        <gwt.test.skip>true</gwt.test.skip>
-    </properties>
     <repositories>
         <repository>
             <id>codenvy-public-repo</id>
@@ -49,15 +45,4 @@
             <url>https://maven.codenvycorp.com/content/groups/public/</url>
         </pluginRepository>
     </pluginRepositories>
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.codenvy.platform-api</groupId>
-                    <artifactId>codenvy-dto-maven-plugin</artifactId>
-                    <version>${codenvy.platform-api.version}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
 </project>
