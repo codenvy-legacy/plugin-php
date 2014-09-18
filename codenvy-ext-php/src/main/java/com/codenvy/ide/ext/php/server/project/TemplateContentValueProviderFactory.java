@@ -22,6 +22,7 @@ import com.codenvy.ide.ext.php.server.project.generator.DefaultTemplateGenerator
 import com.codenvy.ide.ext.php.shared.ProjectAttributes;
 import com.google.inject.Singleton;
 
+import java.util.Collections;
 import java.util.List;
 
 /** @author Vladyslav Zhukovskii */
@@ -40,7 +41,7 @@ public class TemplateContentValueProviderFactory implements ValueProviderFactory
         return new ValueProvider() {
             @Override
             public List<String> getValues() throws ValueStorageException {
-                return null;
+                return Collections.emptyList();
             }
 
             @Override

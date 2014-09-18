@@ -20,7 +20,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class DefaultTemplateGenerator {
 
-    private static final String content = "<!DOCTYPE html>\n" +
+    private static final String CONTENT = "<!DOCTYPE html>\n" +
                                           "<html lang=\"en\">\n" +
                                           "\t<head>\n" +
                                           "\t\t<meta charset=\"utf-8\">\n" +
@@ -33,6 +33,8 @@ public class DefaultTemplateGenerator {
                                           "</html>";
 
     public static void generateTemplate(FolderEntry baseFolder) throws ConflictException, ServerException, ForbiddenException {
-        baseFolder.createFile("index.php", content.getBytes(), "text/php");
+        baseFolder.createFile("index.php", CONTENT.getBytes(), "text/php");
     }
+
+    private DefaultTemplateGenerator() {}
 }
