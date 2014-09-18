@@ -95,6 +95,7 @@ public class PHPPagePresenter extends AbstractWizardPage implements PHPPageView.
             Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                 @Override
                 public void execute() {
+                    // wait for client perform all actions to continue
                 }
             });
         }
