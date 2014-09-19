@@ -46,13 +46,7 @@ public class TemplateContentValueProviderFactory implements ValueProviderFactory
 
             @Override
             public void setValues(List<String> value) throws ValueStorageException, InvalidValueException {
-                if (value.isEmpty()) {
-                    throw new IllegalStateException("Project template can't be empty.");
-                }
-                if (value.size() > 1) {
-                    throw new IllegalStateException("Project template must be only one value.");
-                }
-                if (ProjectAttributes.PHP_DEFAULT_TEMPLATE.equals(value.get(0))) {
+                if (!value.isEmpty() && ProjectAttributes.PHP_DEFAULT_TEMPLATE.equals(value.get(0))) {
                     try {
                         DefaultTemplateGenerator.generateTemplate(project.getBaseFolder());
                     } catch (ConflictException | ServerException | ForbiddenException e) {
