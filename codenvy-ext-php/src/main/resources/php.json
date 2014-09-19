@@ -1,0 +1,22 @@
+[
+    {
+        "displayName": "PHP",
+        "category": "Samples - Hello World",
+        "description": "A simple PHP application.",
+        "source": {
+            "type": "git",
+            "location": "https://github.com/codenvy-templates/web-php-apache-simple.git",
+            "parameters": {
+                "branch": "3.1.0",
+                "cleanVcs": "true"
+            }
+        },
+        "defaultRunnerEnvironment": "php56_apache2",
+        "runnerEnvironmentConfigurations": {
+            "default": {
+                "recommendedMemorySize": 256
+            }
+        },
+        "runnerName": "php-webapp-default"
+    }
+]

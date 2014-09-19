@@ -17,24 +17,32 @@ import com.codenvy.api.project.shared.ProjectTemplateDescription;
 import com.codenvy.api.project.shared.ProjectType;
 import com.codenvy.ide.Constants;
 import com.codenvy.ide.ext.php.shared.ProjectAttributes;
+import com.codenvy.ide.server.ProjectTemplateDescriptionLoader;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 /** @author Vladyslav Zhukovskii */
 @Singleton
 public class PHPProjectTypeExtension implements ProjectTypeExtension {
-    private final ProjectType projectType;
+    private static final Logger LOG = LoggerFactory.getLogger(PHPProjectTypeExtension.class);
+    private final ProjectType                      projectType;
+    private final ProjectTemplateDescriptionLoader projectTemplateDescriptionLoader;
 
     @Inject
-    public PHPProjectTypeExtension(ProjectTypeDescriptionRegistry registry) {
+    public PHPProjectTypeExtension(ProjectTypeDescriptionRegistry registry,
+                                   ProjectTemplateDescriptionLoader projectTemplateDescriptionLoader) {
+        this.projectTemplateDescriptionLoader = projectTemplateDescriptionLoader;
         this.projectType = new ProjectType(ProjectAttributes.PHP_ID, ProjectAttributes.PHP_NAME, ProjectAttributes.PHP_CATEGORY, null,
                                            ProjectAttributes.PHP_DEFAULT_RUNNER);
-        registry.registerProjectType(projectType);
+        registry.registerProjectType(this);
     }
 
     /** {@inheritDoc} */
@@ -54,7 +62,13 @@ public class PHPProjectTypeExtension implements ProjectTypeExtension {
     /** {@inheritDoc} */
     @Override
     public List<ProjectTemplateDescription> getTemplates() {
-        return Collections.emptyList();
+        final List<ProjectTemplateDescription> list = new ArrayList<>();
+        try {
+            projectTemplateDescriptionLoader.load(getProjectType().getId(), list);
+        } catch (IOException e) {
+            LOG.error("Unable to load external templates for project type: {}", getProjectType().getId());
+        }
+        return list;
     }
 
     /** {@inheritDoc} */
