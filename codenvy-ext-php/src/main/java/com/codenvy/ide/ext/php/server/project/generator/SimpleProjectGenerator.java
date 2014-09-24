@@ -14,11 +14,14 @@ import com.codenvy.api.core.ConflictException;
 import com.codenvy.api.core.ForbiddenException;
 import com.codenvy.api.core.ServerException;
 import com.codenvy.api.project.server.FolderEntry;
+import com.codenvy.api.project.server.ProjectGenerator;
 import com.google.inject.Singleton;
+
+import java.util.Map;
 
 /** @author Vladyslav Zhukovskii */
 @Singleton
-public class DefaultTemplateGenerator {
+public class SimpleProjectGenerator implements ProjectGenerator {
 
     private static final String CONTENT = "<!DOCTYPE html>\n" +
                                           "<html lang=\"en\">\n" +
@@ -32,9 +35,14 @@ public class DefaultTemplateGenerator {
                                           "\t</body>\n" +
                                           "</html>";
 
-    public static void generateTemplate(FolderEntry baseFolder) throws ConflictException, ServerException, ForbiddenException {
-        baseFolder.createFile("index.php", CONTENT.getBytes(), "text/php");
+    @Override
+    public String getId() {
+        return "php-simple";
     }
 
-    private DefaultTemplateGenerator() {}
+    @Override
+    public void generateProject(FolderEntry baseFolder, Map<String, String> options)
+            throws ForbiddenException, ConflictException, ServerException {
+        baseFolder.createFile("index.php", CONTENT.getBytes(), "text/php");
+    }
 }

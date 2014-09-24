@@ -17,6 +17,5 @@ public interface ProjectAttributes {
     String PHP_CATEGORY       = "PHP";
     String PHP_DEFAULT_RUNNER = "php-webapp-default";
 
-    String PHP_PROJECT_TEMPLATE = "php.project.template";
-    String PHP_DEFAULT_TEMPLATE = "default";
+    String PHP_DEFAULT_PROJECT_GENERATOR = "php-simple";
 }

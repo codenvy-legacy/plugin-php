@@ -47,7 +47,6 @@ public class PHPProjectTypeDescriptionExtension implements ProjectTypeDescriptio
         list.add(new AttributeDescription(Constants.LANGUAGE));
         list.add(new AttributeDescription(Constants.RUNNER_NAME));
         list.add(new AttributeDescription(Constants.RUNNER_ENV_ID));
-        list.add(new AttributeDescription(ProjectAttributes.PHP_PROJECT_TEMPLATE));
         return list;
     }
 }

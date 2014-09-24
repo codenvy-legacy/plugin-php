@@ -11,10 +11,12 @@
 package com.codenvy.ide.ext.php.client.wizard;
 
 import com.codenvy.api.project.gwt.client.ProjectServiceClient;
+import com.codenvy.api.project.shared.dto.GenerateDescriptor;
 import com.codenvy.api.project.shared.dto.ProjectDescriptor;
 import com.codenvy.ide.api.event.OpenProjectEvent;
 import com.codenvy.ide.api.projecttype.wizard.ProjectWizard;
 import com.codenvy.ide.api.wizard.AbstractWizardPage;
+import com.codenvy.ide.collections.Collections;
 import com.codenvy.ide.dto.DtoFactory;
 import com.codenvy.ide.ext.php.shared.ProjectAttributes;
 import com.codenvy.ide.rest.AsyncRequestCallback;
@@ -37,10 +39,10 @@ import java.util.Map;
 @Singleton
 public class PHPPagePresenter extends AbstractWizardPage implements PHPPageView.ActionDelegate {
 
-    private PHPPageView          view;
-    private ProjectServiceClient projectServiceClient;
-    private EventBus             eventBus;
-    private DtoFactory           dtoFactory;
+    private PHPPageView            view;
+    private ProjectServiceClient   projectServiceClient;
+    private EventBus               eventBus;
+    private DtoFactory             dtoFactory;
     private DtoUnmarshallerFactory dtoUnmarshallerFactory;
 
     @Inject
@@ -104,16 +106,10 @@ public class PHPPagePresenter extends AbstractWizardPage implements PHPPageView.
     /** {@inheritDoc} */
     @Override
     public void commit(@NotNull final CommitCallback callback) {
-        Map<String, List<String>> options = new HashMap<>();
-        options.put(ProjectAttributes.PHP_PROJECT_TEMPLATE, Arrays.asList(ProjectAttributes.PHP_DEFAULT_TEMPLATE));
-
         final ProjectDescriptor projectDescriptorToUpdate = dtoFactory.createDto(ProjectDescriptor.class);
         projectDescriptorToUpdate.withProjectTypeId(wizardContext.getData(ProjectWizard.PROJECT_TYPE).getProjectTypeId());
 
-
-        boolean visibility = wizardContext.getData(ProjectWizard.PROJECT_VISIBILITY);
-        projectDescriptorToUpdate.setVisibility(visibility ? "public" : "private");
-        projectDescriptorToUpdate.setAttributes(options);
+        projectDescriptorToUpdate.setVisibility(getProjectVisibility());
         final String name = wizardContext.getData(ProjectWizard.PROJECT_NAME);
         final ProjectDescriptor project = wizardContext.getData(ProjectWizard.PROJECT);
         if (project != null) {
@@ -134,12 +130,19 @@ public class PHPPagePresenter extends AbstractWizardPage implements PHPPageView.
                     }
                 });
             }
-
         } else {
-            createProject(callback, projectDescriptorToUpdate, name);
+            generateProject(name, getProjectVisibility(), callback);
         }
     }
 
+    private String getProjectVisibility() {
+        Boolean visibility = wizardContext.getData(ProjectWizard.PROJECT_VISIBILITY);
+        if (visibility != null && visibility) {
+            return "public";
+        }
+
+        return "private";
+    }
 
     private void updateProject(final ProjectDescriptor project, ProjectDescriptor projectDescriptorToUpdate,
                                final CommitCallback callback) {
@@ -160,23 +163,25 @@ public class PHPPagePresenter extends AbstractWizardPage implements PHPPageView.
                 });
     }
 
-    private void createProject(final CommitCallback callback, ProjectDescriptor projectDescriptor, final String name) {
-        projectServiceClient
-                .createProject(name, projectDescriptor,
-                               new AsyncRequestCallback<ProjectDescriptor>(
-                                       dtoUnmarshallerFactory.newUnmarshaller(ProjectDescriptor.class)) {
-                                   @Override
-                                   protected void onSuccess(ProjectDescriptor result) {
-                                       eventBus.fireEvent(new OpenProjectEvent(result.getName()));
-                                       wizardContext.putData(ProjectWizard.PROJECT, result);
-                                       callback.onSuccess();
-                                   }
+    private void generateProject(final String name, String visibility, final CommitCallback callback) {
+        GenerateDescriptor generateDescriptor = dtoFactory.createDto(GenerateDescriptor.class)
+                  .withGeneratorName(ProjectAttributes.PHP_DEFAULT_PROJECT_GENERATOR)
+                  .withProjectVisibility(visibility);
+        projectServiceClient.generateProject(name, generateDescriptor,
+                                             new AsyncRequestCallback<ProjectDescriptor>(
+                                                     dtoUnmarshallerFactory.newUnmarshaller(ProjectDescriptor.class)) {
+                                                 @Override
+                                                 protected void onSuccess(ProjectDescriptor result) {
+                                                     eventBus.fireEvent(new OpenProjectEvent(result.getName()));
+                                                     wizardContext.putData(ProjectWizard.PROJECT, result);
+                                                     callback.onSuccess();
+                                                 }
 
-                                   @Override
-                                   protected void onFailure(Throwable exception) {
-                                       callback.onFailure(exception);
-                                   }
-                               }
-                              );
+                                                 @Override
+                                                 protected void onFailure(Throwable exception) {
+                                                     callback.onFailure(exception);
+                                                 }
+                                             }
+                                            );
     }
 }
