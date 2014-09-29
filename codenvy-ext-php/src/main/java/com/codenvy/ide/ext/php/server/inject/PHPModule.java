@@ -10,13 +10,10 @@
  *******************************************************************************/
 package com.codenvy.ide.ext.php.server.inject;
 
-import com.codenvy.api.project.server.ProjectGenerator;
-import com.codenvy.ide.ext.php.server.project.generator.SimpleProjectGenerator;
 import com.codenvy.ide.ext.php.server.project.type.PHPProjectTypeDescriptionExtension;
 import com.codenvy.ide.ext.php.server.project.type.PHPProjectTypeExtension;
 import com.codenvy.inject.DynaModule;
 import com.google.inject.AbstractModule;
-import com.google.inject.multibindings.Multibinder;
 
 /** @author Vladyslav Zhukovskii */
 @DynaModule
@@ -26,8 +23,5 @@ public class PHPModule extends AbstractModule {
     protected void configure() {
         bind(PHPProjectTypeExtension.class);
         bind(PHPProjectTypeDescriptionExtension.class);
-
-        Multibinder<ProjectGenerator> multiBinder = Multibinder.newSetBinder(binder(), ProjectGenerator.class);
-        multiBinder.addBinding().to(SimpleProjectGenerator.class);
     }
 }

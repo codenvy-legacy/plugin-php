@@ -15,7 +15,7 @@ public interface ProjectAttributes {
     String PHP_ID             = "php";
     String PHP_NAME           = "PHP Project";
     String PHP_CATEGORY       = "PHP";
-    String PHP_DEFAULT_RUNNER = "php-webapp-default";
 
-    String PHP_DEFAULT_PROJECT_GENERATOR = "php-simple";
+    String PHP_DEFAULT_RUNNER = "php-webapp-default";
+    String PHP_DEFAULT_RUNNER_ENVID = "php56_apache2";
 }

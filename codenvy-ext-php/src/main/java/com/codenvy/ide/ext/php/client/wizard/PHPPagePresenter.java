@@ -11,12 +11,10 @@
 package com.codenvy.ide.ext.php.client.wizard;
 
 import com.codenvy.api.project.gwt.client.ProjectServiceClient;
-import com.codenvy.api.project.shared.dto.GenerateDescriptor;
 import com.codenvy.api.project.shared.dto.ProjectDescriptor;
 import com.codenvy.ide.api.event.OpenProjectEvent;
 import com.codenvy.ide.api.projecttype.wizard.ProjectWizard;
 import com.codenvy.ide.api.wizard.AbstractWizardPage;
-import com.codenvy.ide.collections.Collections;
 import com.codenvy.ide.dto.DtoFactory;
 import com.codenvy.ide.ext.php.shared.ProjectAttributes;
 import com.codenvy.ide.rest.AsyncRequestCallback;
@@ -30,10 +28,6 @@ import com.google.web.bindery.event.shared.EventBus;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /** @author Vladyslav Zhukovskii */
 @Singleton
@@ -111,6 +105,9 @@ public class PHPPagePresenter extends AbstractWizardPage implements PHPPageView.
 
         projectDescriptorToUpdate.setVisibility(getProjectVisibility());
         final String name = wizardContext.getData(ProjectWizard.PROJECT_NAME);
+        projectDescriptorToUpdate.setDescription(wizardContext.getData(ProjectWizard.PROJECT_DESCRIPTION));
+        projectDescriptorToUpdate.setRunner(ProjectAttributes.PHP_DEFAULT_RUNNER);
+        projectDescriptorToUpdate.setDefaultRunnerEnvironment(ProjectAttributes.PHP_DEFAULT_RUNNER_ENVID);
         final ProjectDescriptor project = wizardContext.getData(ProjectWizard.PROJECT);
         if (project != null) {
             if (project.getName().equals(name)) {
@@ -131,7 +128,7 @@ public class PHPPagePresenter extends AbstractWizardPage implements PHPPageView.
                 });
             }
         } else {
-            generateProject(name, getProjectVisibility(), callback);
+            createProject(callback, projectDescriptorToUpdate, name);
         }
     }
 
@@ -163,25 +160,23 @@ public class PHPPagePresenter extends AbstractWizardPage implements PHPPageView.
                 });
     }
 
-    private void generateProject(final String name, String visibility, final CommitCallback callback) {
-        GenerateDescriptor generateDescriptor = dtoFactory.createDto(GenerateDescriptor.class)
-                  .withGeneratorName(ProjectAttributes.PHP_DEFAULT_PROJECT_GENERATOR)
-                  .withProjectVisibility(visibility);
-        projectServiceClient.generateProject(name, generateDescriptor,
-                                             new AsyncRequestCallback<ProjectDescriptor>(
-                                                     dtoUnmarshallerFactory.newUnmarshaller(ProjectDescriptor.class)) {
-                                                 @Override
-                                                 protected void onSuccess(ProjectDescriptor result) {
-                                                     eventBus.fireEvent(new OpenProjectEvent(result.getName()));
-                                                     wizardContext.putData(ProjectWizard.PROJECT, result);
-                                                     callback.onSuccess();
-                                                 }
+    private void createProject(final CommitCallback callback, ProjectDescriptor projectDescriptor, final String name) {
+        projectServiceClient
+                .createProject(name, projectDescriptor,
+                               new AsyncRequestCallback<ProjectDescriptor>(
+                                       dtoUnmarshallerFactory.newUnmarshaller(ProjectDescriptor.class)) {
+                                   @Override
+                                   protected void onSuccess(ProjectDescriptor result) {
+                                       eventBus.fireEvent(new OpenProjectEvent(result.getName()));
+                                       wizardContext.putData(ProjectWizard.PROJECT, result);
+                                       callback.onSuccess();
+                                   }
 
-                                                 @Override
-                                                 protected void onFailure(Throwable exception) {
-                                                     callback.onFailure(exception);
-                                                 }
-                                             }
-                                            );
+                                   @Override
+                                   protected void onFailure(Throwable exception) {
+                                       callback.onFailure(exception);
+                                   }
+                               }
+                              );
     }
 }
