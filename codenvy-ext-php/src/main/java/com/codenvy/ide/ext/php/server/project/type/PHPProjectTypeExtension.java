@@ -40,8 +40,7 @@ public class PHPProjectTypeExtension implements ProjectTypeExtension {
     public PHPProjectTypeExtension(ProjectTypeDescriptionRegistry registry,
                                    ProjectTemplateDescriptionLoader projectTemplateDescriptionLoader) {
         this.projectTemplateDescriptionLoader = projectTemplateDescriptionLoader;
-        this.projectType = new ProjectType(ProjectAttributes.PHP_ID, ProjectAttributes.PHP_NAME, ProjectAttributes.PHP_CATEGORY, null,
-                                           ProjectAttributes.PHP_DEFAULT_RUNNER);
+        this.projectType = new ProjectType(ProjectAttributes.PHP_ID, ProjectAttributes.PHP_NAME, ProjectAttributes.PHP_CATEGORY);
         registry.registerProjectType(this);
     }
 

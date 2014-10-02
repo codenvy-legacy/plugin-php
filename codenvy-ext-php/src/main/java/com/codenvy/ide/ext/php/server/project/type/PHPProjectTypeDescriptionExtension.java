@@ -35,8 +35,7 @@ public class PHPProjectTypeDescriptionExtension implements ProjectTypeDescriptio
     @Override
     public List<ProjectType> getProjectTypes() {
         final List<ProjectType> list = new ArrayList<>(1);
-        list.add(new ProjectType(ProjectAttributes.PHP_ID, ProjectAttributes.PHP_NAME, ProjectAttributes.PHP_CATEGORY, null,
-                                 ProjectAttributes.PHP_DEFAULT_RUNNER));
+        list.add(new ProjectType(ProjectAttributes.PHP_ID, ProjectAttributes.PHP_NAME, ProjectAttributes.PHP_CATEGORY));
         return list;
     }
 
