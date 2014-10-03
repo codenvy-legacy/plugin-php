@@ -14,7 +14,7 @@ import com.codenvy.api.project.server.ProjectTypeDescriptionExtension;
 import com.codenvy.api.project.server.ProjectTypeDescriptionRegistry;
 import com.codenvy.api.project.shared.AttributeDescription;
 import com.codenvy.api.project.shared.ProjectType;
-import com.codenvy.ide.Constants;
+import com.codenvy.api.project.shared.Constants;
 import com.codenvy.ide.ext.php.shared.ProjectAttributes;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -44,8 +44,6 @@ public class PHPProjectTypeDescriptionExtension implements ProjectTypeDescriptio
     public List<AttributeDescription> getAttributeDescriptions() {
         final List<AttributeDescription> list = new ArrayList<>(4);
         list.add(new AttributeDescription(Constants.LANGUAGE));
-        list.add(new AttributeDescription(Constants.RUNNER_NAME));
-        list.add(new AttributeDescription(Constants.RUNNER_ENV_ID));
         return list;
     }
 }

@@ -15,7 +15,7 @@ import com.codenvy.api.project.server.ProjectTypeExtension;
 import com.codenvy.api.project.shared.Attribute;
 import com.codenvy.api.project.shared.ProjectTemplateDescription;
 import com.codenvy.api.project.shared.ProjectType;
-import com.codenvy.ide.Constants;
+import com.codenvy.api.project.shared.Constants;
 import com.codenvy.ide.ext.php.shared.ProjectAttributes;
 import com.codenvy.api.project.server.ProjectTemplateDescriptionLoader;
 import com.google.inject.Inject;
