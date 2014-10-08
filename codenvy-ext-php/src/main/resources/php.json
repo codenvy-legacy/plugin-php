@@ -8,7 +8,7 @@
             "location": "https://github.com/codenvy-templates/web-php-apache-simple.git",
             "parameters": {
                 "branch": "3.1.0",
-                "cleanVcs": "true"
+                "keepVcs": "false"
             }
         },
         "defaultRunnerEnvironment": "php56_apache2",
