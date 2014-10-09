@@ -10,11 +10,13 @@
  *******************************************************************************/
 package com.codenvy.ide.ext.php.server.project.type;
 
+import com.codenvy.api.project.server.Builders;
 import com.codenvy.api.project.server.ProjectTypeDescriptionRegistry;
 import com.codenvy.api.project.server.ProjectTypeExtension;
-import com.codenvy.api.project.shared.Attribute;
-import com.codenvy.api.project.shared.ProjectTemplateDescription;
-import com.codenvy.api.project.shared.ProjectType;
+import com.codenvy.api.project.server.Attribute;
+import com.codenvy.api.project.server.ProjectTemplateDescription;
+import com.codenvy.api.project.server.ProjectType;
+import com.codenvy.api.project.server.Runners;
 import com.codenvy.api.project.shared.Constants;
 import com.codenvy.ide.ext.php.shared.ProjectAttributes;
 import com.codenvy.api.project.server.ProjectTemplateDescriptionLoader;
@@ -56,6 +58,16 @@ public class PHPProjectTypeExtension implements ProjectTypeExtension {
         final List<Attribute> list = new ArrayList<>(1);
         list.add(new Attribute(Constants.LANGUAGE, ProjectAttributes.PHP_ID));
         return list;
+    }
+
+    @Override
+    public Builders getBuilders() {
+        return null;
+    }
+
+    @Override
+    public Runners getRunners() {
+        return null;
     }
 
     /** {@inheritDoc} */
