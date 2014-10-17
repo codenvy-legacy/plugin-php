@@ -17,6 +17,7 @@ import com.codenvy.ide.api.notification.NotificationManager;
 import com.codenvy.ide.api.projecttype.wizard.ProjectTypeWizardRegistry;
 import com.codenvy.ide.api.projecttype.wizard.ProjectWizard;
 import com.codenvy.ide.ext.php.client.wizard.PHPPagePresenter;
+import com.codenvy.ide.ext.php.shared.ProjectAttributes;
 import com.codenvy.ide.extension.runner.client.wizard.SelectRunnerPagePresenter;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.inject.Inject;
@@ -44,6 +45,6 @@ public class PHPExtension {
 
         projectTypeWizardRegistry.addWizard("php", wizard);
 
-        iconRegistry.registerIcon(new Icon("PHP.samples.category.icon", parserResource.phpCategoryIcon()));
+        iconRegistry.registerIcon(new Icon(ProjectAttributes.PHP_CATEGORY + ".samples.category.icon", parserResource.phpCategoryIcon()));
     }
 }
