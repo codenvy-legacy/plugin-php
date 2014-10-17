@@ -44,6 +44,6 @@ public class PHPExtension {
 
         projectTypeWizardRegistry.addWizard("php", wizard);
 
-        iconRegistry.registerIcon(new Icon("php.samples.category.icon", parserResource.phpCategoryIcon()));
+        iconRegistry.registerIcon(new Icon("PHP.samples.category.icon", parserResource.phpCategoryIcon()));
     }
 }
