@@ -19,5 +19,26 @@
                 }
             }
         }
+    },
+    {
+        "displayName": "Twitter Bootstrap",
+        "category": "Samples - Hello World",
+        "description": "A simple HTML application based on Twitter Bootstrap.",
+        "source": {
+            "type": "git",
+            "location": "https://github.com/codenvy-templates/web-javascript-html-bootstrap.git",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/php/web/php56_apache2",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        }
     }
 ]
