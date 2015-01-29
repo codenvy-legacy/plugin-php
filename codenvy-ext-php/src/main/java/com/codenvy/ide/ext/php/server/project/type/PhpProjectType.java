@@ -8,12 +8,19 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package com.codenvy.ide.ext.php.shared;
+package com.codenvy.ide.ext.php.server.project.type;
 
-/** @author Vladyslav Zhukovskii */
-public interface ProjectAttributes {
-    String PHP_ID               = "php";
-    String PHP_NAME             = "PHP Project";
-    String PHP_CATEGORY         = "PHP";
-    String PROGRAMMING_LANGUAGE = "php";
+import com.codenvy.api.project.server.type.ProjectType;
+import com.codenvy.api.project.shared.Constants;
+import com.codenvy.ide.ext.php.shared.ProjectAttributes;
+
+/**
+ * @author Vitaly Parfonov
+ */
+public class PhpProjectType extends ProjectType {
+
+    public PhpProjectType() {
+        super(ProjectAttributes.PHP_ID, ProjectAttributes.PHP_NAME, true, false);
+        addConstantDefinition(Constants.LANGUAGE, "language", ProjectAttributes.PROGRAMMING_LANGUAGE);
+    }
 }

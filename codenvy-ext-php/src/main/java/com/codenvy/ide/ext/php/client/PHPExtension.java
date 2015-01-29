@@ -11,17 +11,8 @@
 package com.codenvy.ide.ext.php.client;
 
 import com.codenvy.ide.api.extension.Extension;
-import com.codenvy.ide.api.icon.Icon;
-import com.codenvy.ide.api.icon.IconRegistry;
-import com.codenvy.ide.api.notification.NotificationManager;
-import com.codenvy.ide.api.projecttype.wizard.ProjectTypeWizardRegistry;
-import com.codenvy.ide.api.projecttype.wizard.ProjectWizard;
-import com.codenvy.ide.ext.php.client.wizard.PHPPagePresenter;
-import com.codenvy.ide.ext.php.shared.ProjectAttributes;
-import com.codenvy.ide.extension.runner.client.wizard.SelectRunnerPagePresenter;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 import org.vectomatic.dom.svg.ui.SVGResource;
@@ -36,15 +27,17 @@ public class PHPExtension {
     }
 
     @Inject
-    public PHPExtension(Provider<PHPPagePresenter> phpPagePresenterProvider, Provider<SelectRunnerPagePresenter> runnerPagePresenter,
-                        NotificationManager notificationManager, ProjectTypeWizardRegistry projectTypeWizardRegistry,
-                        ParserResource parserResource, IconRegistry iconRegistry) {
-        ProjectWizard wizard = new ProjectWizard(notificationManager);
-        wizard.addPage(phpPagePresenterProvider);
-        wizard.addPage(runnerPagePresenter);
-
-        projectTypeWizardRegistry.addWizard("php", wizard);
-
-        iconRegistry.registerIcon(new Icon(ProjectAttributes.PHP_CATEGORY + ".samples.category.icon", parserResource.phpCategoryIcon()));
+    public PHPExtension()
+//                        Provider<PHPPagePresenter> phpPagePresenterProvider, Provider<SelectRunnerPagePresenter> runnerPagePresenter,
+//                        NotificationManager notificationManager, ProjectTypeWizardRegistry projectTypeWizardRegistry,
+//                        ParserResource parserResource, IconRegistry iconRegistry)
+    {
+//        ProjectWizard wizard = new ProjectWizard(notificationManager);
+//        wizard.addPage(phpPagePresenterProvider);
+//        wizard.addPage(runnerPagePresenter);
+//
+//        projectTypeWizardRegistry.addWizard("php", wizard);
+//
+//        iconRegistry.registerIcon(new Icon(ProjectAttributes.PHP_CATEGORY + ".samples.category.icon", parserResource.phpCategoryIcon()));
     }
 }

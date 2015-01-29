@@ -10,8 +10,6 @@
  *******************************************************************************/
 package com.codenvy.ide.ext.php.client.wizard;
 
-import com.codenvy.api.project.shared.dto.ProjectDescriptor;
-import com.codenvy.ide.api.projecttype.wizard.ProjectWizard;
 import com.codenvy.ide.api.wizard.AbstractWizardPage;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -68,14 +66,14 @@ public class PHPPagePresenter extends AbstractWizardPage implements PHPPageView.
     @Override
     public void go(AcceptsOneWidget container) {
         container.setWidget(view);
-        ProjectDescriptor project = wizardContext.getData(ProjectWizard.PROJECT);
-        if (project != null) {
-            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-                @Override
-                public void execute() {
-                    // wait for client perform all actions to continue
-                }
-            });
-        }
+//        ProjectDescriptor project = wizardContext.getData(ProjectWizard.PROJECT);
+//        if (project != null) {
+//            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+//                @Override
+//                public void execute() {
+//                    // wait for client perform all actions to continue
+//                }
+//            });
+//        }
     }
 }

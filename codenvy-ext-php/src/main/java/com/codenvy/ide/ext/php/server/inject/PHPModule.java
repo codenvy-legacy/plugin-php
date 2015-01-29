@@ -10,10 +10,11 @@
  *******************************************************************************/
 package com.codenvy.ide.ext.php.server.inject;
 
-import com.codenvy.ide.ext.php.server.project.type.PHPProjectTypeDescriptionExtension;
-import com.codenvy.ide.ext.php.server.project.type.PHPProjectTypeExtension;
+import com.codenvy.api.project.server.type.ProjectType;
+import com.codenvy.ide.ext.php.server.project.type.PhpProjectType;
 import com.codenvy.inject.DynaModule;
 import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
 
 /** @author Vladyslav Zhukovskii */
 @DynaModule
@@ -21,7 +22,7 @@ public class PHPModule extends AbstractModule {
     /** {@inheritDoc} */
     @Override
     protected void configure() {
-        bind(PHPProjectTypeExtension.class);
-        bind(PHPProjectTypeDescriptionExtension.class);
+        Multibinder<ProjectType> projectTypeMultibinder = Multibinder.newSetBinder(binder(), ProjectType.class);
+        projectTypeMultibinder.addBinding().to(PhpProjectType.class);
     }
 }
