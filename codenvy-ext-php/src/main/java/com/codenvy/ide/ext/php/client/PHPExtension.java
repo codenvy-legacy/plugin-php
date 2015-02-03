@@ -11,6 +11,9 @@
 package com.codenvy.ide.ext.php.client;
 
 import com.codenvy.ide.api.extension.Extension;
+import com.codenvy.ide.api.icon.Icon;
+import com.codenvy.ide.api.icon.IconRegistry;
+import com.codenvy.ide.ext.php.shared.ProjectAttributes;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -21,23 +24,13 @@ import org.vectomatic.dom.svg.ui.SVGResource;
 @Singleton
 @Extension(title = "PHP", version = "3.0.0")
 public class PHPExtension {
+    @Inject
+    public PHPExtension(ParserResource parserResource, IconRegistry iconRegistry) {
+        iconRegistry.registerIcon(new Icon(ProjectAttributes.PHP_CATEGORY + ".samples.category.icon", parserResource.phpCategoryIcon()));
+    }
+
     public interface ParserResource extends ClientBundle {
         @Source("com/codenvy/ide/ext/php/client/image/php.svg")
         SVGResource phpCategoryIcon();
-    }
-
-    @Inject
-    public PHPExtension()
-//                        Provider<PHPPagePresenter> phpPagePresenterProvider, Provider<SelectRunnerPagePresenter> runnerPagePresenter,
-//                        NotificationManager notificationManager, ProjectTypeWizardRegistry projectTypeWizardRegistry,
-//                        ParserResource parserResource, IconRegistry iconRegistry)
-    {
-//        ProjectWizard wizard = new ProjectWizard(notificationManager);
-//        wizard.addPage(phpPagePresenterProvider);
-//        wizard.addPage(runnerPagePresenter);
-//
-//        projectTypeWizardRegistry.addWizard("php", wizard);
-//
-//        iconRegistry.registerIcon(new Icon(ProjectAttributes.PHP_CATEGORY + ".samples.category.icon", parserResource.phpCategoryIcon()));
     }
 }
