@@ -36,9 +36,12 @@ public class PHPExtension {
     }
 
     @Inject
-    public PHPExtension(Provider<PHPPagePresenter> phpPagePresenterProvider, Provider<SelectRunnerPagePresenter> runnerPagePresenter,
-                        NotificationManager notificationManager, ProjectTypeWizardRegistry projectTypeWizardRegistry,
-                        ParserResource parserResource, IconRegistry iconRegistry) {
+    public PHPExtension(Provider<PHPPagePresenter> phpPagePresenterProvider,
+                        Provider<SelectRunnerPagePresenter> runnerPagePresenter,
+                        NotificationManager notificationManager,
+                        ProjectTypeWizardRegistry projectTypeWizardRegistry,
+                        ParserResource parserResource,
+                        IconRegistry iconRegistry) {
         ProjectWizard wizard = new ProjectWizard(notificationManager);
         wizard.addPage(phpPagePresenterProvider);
         wizard.addPage(runnerPagePresenter);
