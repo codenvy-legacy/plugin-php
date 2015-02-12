@@ -12,7 +12,8 @@ package com.codenvy.ide.ext.php.shared;
 
 /** @author Vladyslav Zhukovskii */
 public interface ProjectAttributes {
-    String PHP_ID             = "php";
-    String PHP_NAME           = "PHP Project";
-    String PHP_CATEGORY       = "PHP";
+    String PHP_ID               = "php";
+    String PHP_NAME             = "PHP Project";
+    String PHP_CATEGORY         = "PHP";
+    String PROGRAMMING_LANGUAGE = "php";
 }

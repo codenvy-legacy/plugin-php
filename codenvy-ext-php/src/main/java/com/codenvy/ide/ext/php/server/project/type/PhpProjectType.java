@@ -8,14 +8,19 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package com.codenvy.ide.ext.php.client.wizard;
+package com.codenvy.ide.ext.php.server.project.type;
 
-import com.codenvy.ide.api.mvp.View;
-import com.google.inject.ImplementedBy;
+import com.codenvy.api.project.server.type.ProjectType;
+import com.codenvy.api.project.shared.Constants;
+import com.codenvy.ide.ext.php.shared.ProjectAttributes;
 
-/** @author Vladyslav Zhukovskii */
-@ImplementedBy(PHPPageViewImpl.class)
-public interface PHPPageView extends View<PHPPageView.ActionDelegate> {
-    public interface ActionDelegate {
+/**
+ * @author Vitaly Parfonov
+ */
+public class PhpProjectType extends ProjectType {
+
+    public PhpProjectType() {
+        super(ProjectAttributes.PHP_ID, ProjectAttributes.PHP_NAME, true, false);
+        addConstantDefinition(Constants.LANGUAGE, "language", ProjectAttributes.PROGRAMMING_LANGUAGE);
     }
 }
