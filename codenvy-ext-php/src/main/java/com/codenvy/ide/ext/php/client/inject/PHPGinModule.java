@@ -11,10 +11,10 @@
 package com.codenvy.ide.ext.php.client.inject;
 
 import com.codenvy.ide.api.extension.ExtensionGinModule;
-import com.codenvy.ide.ext.php.client.wizard.PHPPageView;
-import com.codenvy.ide.ext.php.client.wizard.PHPPageViewImpl;
+import com.codenvy.ide.api.projecttype.wizard.ProjectWizardRegistrar;
+import com.codenvy.ide.ext.php.client.wizard.PHPProjectWizardRegistrar;
 import com.google.gwt.inject.client.AbstractGinModule;
-import com.google.inject.Singleton;
+import com.google.gwt.inject.client.multibindings.GinMultibinder;
 
 /** @author Vladyslav Zhukovskii */
 @ExtensionGinModule
@@ -22,6 +22,6 @@ public class PHPGinModule extends AbstractGinModule {
     /** {@inheritDoc} */
     @Override
     protected void configure() {
-        bind(PHPPageView.class).to(PHPPageViewImpl.class).in(Singleton.class);
+        GinMultibinder.newSetBinder(binder(), ProjectWizardRegistrar.class).addBinding().to(PHPProjectWizardRegistrar.class);
     }
 }
