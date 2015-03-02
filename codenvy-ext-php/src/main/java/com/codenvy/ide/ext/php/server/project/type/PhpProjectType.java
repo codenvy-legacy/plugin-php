@@ -14,13 +14,19 @@ import com.codenvy.api.project.server.type.ProjectType;
 import com.codenvy.api.project.shared.Constants;
 import com.codenvy.ide.ext.php.shared.ProjectAttributes;
 
+import java.util.Arrays;
+
+import static com.codenvy.ide.api.projecttype.RunnerCategory.PHP;
+
 /**
  * @author Vitaly Parfonov
+ * @author Dmitry Shnurenko
  */
 public class PhpProjectType extends ProjectType {
 
     public PhpProjectType() {
         super(ProjectAttributes.PHP_ID, ProjectAttributes.PHP_NAME, true, false);
         addConstantDefinition(Constants.LANGUAGE, "language", ProjectAttributes.PROGRAMMING_LANGUAGE);
+        addRunnerCategories(Arrays.asList(PHP.toString()));
     }
 }
