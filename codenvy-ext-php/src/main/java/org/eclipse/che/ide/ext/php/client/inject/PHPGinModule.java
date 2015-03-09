@@ -8,21 +8,20 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package com.codenvy.ide.ext.php.server.inject;
+package org.eclipse.che.ide.ext.php.client.inject;
 
-import com.codenvy.api.project.server.type.ProjectType;
-import com.codenvy.ide.ext.php.server.project.type.PhpProjectType;
-import com.codenvy.inject.DynaModule;
-import com.google.inject.AbstractModule;
-import com.google.inject.multibindings.Multibinder;
+import org.eclipse.che.ide.api.extension.ExtensionGinModule;
+import org.eclipse.che.ide.api.project.type.wizard.ProjectWizardRegistrar;
+import org.eclipse.che.ide.ext.php.client.wizard.PHPProjectWizardRegistrar;
+import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.gwt.inject.client.multibindings.GinMultibinder;
 
 /** @author Vladyslav Zhukovskii */
-@DynaModule
-public class PHPModule extends AbstractModule {
+@ExtensionGinModule
+public class PHPGinModule extends AbstractGinModule {
     /** {@inheritDoc} */
     @Override
     protected void configure() {
-        Multibinder<ProjectType> projectTypeMultibinder = Multibinder.newSetBinder(binder(), ProjectType.class);
-        projectTypeMultibinder.addBinding().to(PhpProjectType.class);
+        GinMultibinder.newSetBinder(binder(), ProjectWizardRegistrar.class).addBinding().to(PHPProjectWizardRegistrar.class);
     }
 }
